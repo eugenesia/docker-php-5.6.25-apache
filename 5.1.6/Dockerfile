@@ -45,7 +45,7 @@ ENV PHP_LDFLAGS="-Wl,-O1 -Wl,--hash-style=both -pie"
 ENV GPG_KEYS 0BD78B5F97500D450838F95DFE857D9A90D90EC1 6E4F6AB321FDC07F2C332E3AC2BF0BC433CFC8B3
 
 ENV PHP_VERSION 5.1.6
-ENV PHP_URL="http://museum.php.net/php5/php-5.1.6.tar.gz/from/this/mirror" PHP_ASC_URL="http://museum.php.net/php5/php-5.1.6.tar.gz/from/this/mirror"
+ENV PHP_URL="http://museum.php.net/php5/php-5.1.6.tar.gz" PHP_ASC_URL="http://museum.php.net/php5/php-5.1.6.tar.gz"
 ENV PHP_SHA256="" PHP_MD5=""
 
 RUN set -xe; \
