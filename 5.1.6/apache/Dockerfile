@@ -6,9 +6,12 @@ RUN echo 'deb http://snapshot.debian.org/archive/debian/20061105T000000Z/ unstab
 
 # Don't authenticate as old versions have expired GPG keys.
 RUN apt-get update && apt-get --allow-unauthenticated -f --yes install \
-  php5=5.1.6-6 php5-cli=5.1.6-6 php5-common=5.1.6-6
+  php5=5.1.6-6 \
+  php5-cgi=5.1.6-6 \
+  php5-cli=5.1.6-6 \
+  php5-common=5.1.6-6
 
-RUN apt-get update && apt-get --allow-unauthenticated -f --yes install \
+RUN apt-get --allow-unauthenticated -f --yes install \
   libapache2-mod-php5=5.1.6-6
 
 # apache2=2.2.3-3
