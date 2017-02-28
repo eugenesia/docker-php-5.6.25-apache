@@ -6,7 +6,8 @@ RUN echo 'deb http://snapshot.debian.org/archive/debian/20061105T000000Z/ unstab
 
 # Don't authenticate as old versions have expired GPG keys.
 RUN apt-get update && apt-get --allow-unauthenticated -f --yes install \
-  php5=5.1.6-6 php5-cli=5.1.6-6 php5-common=5.1.6-6 libapache2-mod-php5=5.1.6-6 apache2
+  php5=5.1.6-6 php5-cli=5.1.6-6 php5-common=5.1.6-6 apache2
+  #libapache2-mod-php5=5.1.6-6 apache2
 
 ENV PHP_INI_DIR /usr/local/etc/php
 RUN mkdir -p $PHP_INI_DIR/conf.d
