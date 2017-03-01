@@ -133,7 +133,11 @@ cd /usr/src/php
 ./configure --with-config-file-path="$PHP_INI_DIR" --with-config-file-scan-dir="$PHP_INI_DIR/conf.d" --disable-cgi --enable-ftp --enable-mbstring --enable-mysqlnd --with-curl --with-libedit --with-openssl --with-zlib $PHP_EXTRA_CONFIGURE_ARGS
 
 
+# Make bug with "unknown type LHASH" involving usr/include/openssl/
+# Provided by libssl-dev=1.0.1t-1+deb8u6
+# Try installing older version of libssl-dev
 make -j "$(nproc)"
+
 make install 
 { find /usr/local/bin /usr/local/sbin -type f -executable -exec strip --strip-all '{}' + || true; }
 make clean
