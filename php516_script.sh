@@ -3,7 +3,7 @@
 export PHPIZE_DEPS='autoconf file g++ gcc libc-dev make pkg-config re2c'
 
 apt-get update
-apt-get install -y "$PHPIZE_DEPS" ca-certificates curl libedit2 libsqlite3-0 libxml2 xz-utils --no-install-recommends
+apt-get install -y $PHPIZE_DEPS ca-certificates curl libedit2 libsqlite3-0 libxml2 xz-utils --no-install-recommends
 
 export PHP_INI_DIR=/usr/local/etc/php
 export APACHE_CONFDIR=/etc/apache2
@@ -112,7 +112,8 @@ set -xe; \
 
 
 set -xe;
-export buildDeps="$PHP_EXTRA_BUILD_DEPS libcurl4-openssl-dev libedit-dev libsqlite3-dev libssl-dev libxml2-dev"
+# Added bison flex libeditline0
+export buildDeps="$PHP_EXTRA_BUILD_DEPS libcurl4-openssl-dev libedit-dev libsqlite3-dev libssl-dev libxml2-dev bison flex libeditline0"
 apt-get update
 apt-get install -y $buildDeps --no-install-recommends
 
@@ -123,7 +124,15 @@ cd /usr/src/php
 # --enable-ftp is included here because ftp_ssl_connect() needs ftp to be compiled statically (see https://github.com/docker-library/php/issues/236)
 # --enable-mbstring is included here because otherwise there's no way to get pecl to use it properly (see https://github.com/docker-library/php/issues/195)
 # --enable-mysqlnd is included here because it's harder to compile after the fact than extensions are (since it's a plugin for several extensions, not an extension in itself)
+
+# Error during configure:
+# configure: error: Please reinstall libedit - I cannot find readline.h
+# Bug report: https://bugs.php.net/bug.php?id=50209
+# Solution: apt-get install libreadline-dev (--with-libedit still works)
+# Added info about readline.h from 'dpkg -L libedit-dev'
 ./configure --with-config-file-path="$PHP_INI_DIR" --with-config-file-scan-dir="$PHP_INI_DIR/conf.d" --disable-cgi --enable-ftp --enable-mbstring --enable-mysqlnd --with-curl --with-libedit --with-openssl --with-zlib $PHP_EXTRA_CONFIGURE_ARGS
+
+
 make -j "$(nproc)"
 make install 
 { find /usr/local/bin /usr/local/sbin -type f -executable -exec strip --strip-all '{}' + || true; }
