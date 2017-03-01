@@ -1,9 +1,9 @@
 ################## Env setting ####################
 
-export PHPIZE_DEPS='autoconf file g++ gcc libc-dev make pkg-config export PHPIZE_DEPS=autoconf file g++ gcc libc-dev make pkg-config re2c'
+export PHPIZE_DEPS='autoconf file g++ gcc libc-dev make pkg-config re2c'
 
 apt-get update
-apt-get install -y $PHPIZE_DEPS ca-certificates curl libedit2 libsqlite3-0 libxml2 xz-utils --no-install-recommends
+apt-get install -y "$PHPIZE_DEPS" ca-certificates curl libedit2 libsqlite3-0 libxml2 xz-utils --no-install-recommends
 
 export PHP_INI_DIR=/usr/local/etc/php
 export APACHE_CONFDIR=/etc/apache2
